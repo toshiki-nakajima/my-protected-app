@@ -1,5 +1,5 @@
 "use client"
-import React, { useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import jsQR from 'jsqr';
 
 export default function Home() {
@@ -9,7 +9,8 @@ export default function Home() {
   const videoStreamRef = useRef<MediaStream | null>(null);
   const [result, setResult] = useState('結果がここに表示されます');
   const scannedUid = useRef<string | null>(null);
-  const [pointToAdd, setPointToAdd] = useState<number>(0);
+  const [pointToAdd, setPointToAdd] = useState<number>(1);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const startScan = async () => {
     if (scanningRef.current) return;
@@ -83,9 +84,34 @@ export default function Home() {
     requestAnimationFrame(tick);
   };
 
+  useEffect(() => {
+    const input = inputRef.current;
+    const preventKeydown = (e: KeyboardEvent) => {
+      e.preventDefault();
+    }
+    if (input) {
+      input.addEventListener('keydown', preventKeydown);
+    }
+    return () => {
+      if (input) {
+        input.removeEventListener('keydown', preventKeydown);
+      }
+    }
+  }, []);
+
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const point = Number(e.target.value);
     setPointToAdd(point);
+  }
+
+  const submitHandler = () => {
+    if (!scannedUid.current) {
+        console.log('QRコードを読み取ってください');
+        setResult('QRコードを読み取ってください');
+        return;
+    }
+    console.log('ポイントを追加: ', pointToAdd);
+    setResult(`ポイントを追加: ${pointToAdd}P`);
   }
   return (
     <div className="container mx-auto p-8 max-w-3xl">
@@ -106,10 +132,18 @@ export default function Home() {
         {scanningRef.current && <div className="recording-mark m-4 w-4 h-4 bg-red-500 rounded-full"></div>}
       </div>
 
-      <div id="result" className="p-4 bg-gray-100 rounded shadow-sm">{result}</div>
-      <div>
-        <input onInput={inputHandler} type="number" value={pointToAdd} min="0" max="10"/>
+      <div id="result" className="mb-4 p-4 bg-gray-100 rounded shadow-sm">{result}</div>
+
+      <div className="mb-4 flex gap-1 items-center">
+        <span>追加するポイント</span>
+        <input className="border-3 border-gray-400 p-1 rounded-md" ref={inputRef} onInput={inputHandler} type="number" value={pointToAdd} min="1" max="10"/>
+        <span>P</span>
       </div>
+
+      <div className="mb-4">
+        <button className="bg-blue-500 text-white py-2 px-4 rounded" onClick={submitHandler}>ポイント追加</button>
+      </div>
+
     </div>
   );
 }
