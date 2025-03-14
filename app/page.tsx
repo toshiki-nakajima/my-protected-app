@@ -5,8 +5,9 @@ import jsQR from 'jsqr';
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const scanningRef = useRef(false);
+  const [scanning, setScanning] = useState(false);
+  const videoStreamRef = useRef<MediaStream | null>(null);
   const [result, setResult] = useState('結果がここに表示されます');
-  const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
 
   const startScan = async () => {
     if (scanningRef.current) return;
@@ -16,7 +17,8 @@ export default function Home() {
         video: { facingMode: 'environment' },
       });
       scanningRef.current = true;
-      setVideoStream(stream);
+      setScanning(true);
+      videoStreamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.setAttribute('playsinline', 'true');
@@ -33,11 +35,12 @@ export default function Home() {
     if (!scanningRef.current) return;
 
     scanningRef.current = false;
-    if (videoStream) {
-      videoStream.getTracks().forEach((track) => {
+    setScanning(false);
+    if (videoStreamRef.current) {
+      videoStreamRef.current.getTracks().forEach((track) => {
         track.stop();
       });
-      setVideoStream(null);
+      videoStreamRef.current = null;
     }
     setResult('スキャンを停止しました');
   };
@@ -87,10 +90,10 @@ export default function Home() {
       </div>
 
         <div className="mb-4">
-          <button onClick={startScan} disabled={scanningRef.current} className="bg-green-500 text-white py-2 px-4 rounded mr-2">
+          <button onClick={startScan} disabled={scanning} className="bg-green-500 text-white py-2 px-4 rounded mr-2">
             スキャン開始
           </button>
-          <button onClick={stopScan} disabled={!scanningRef.current} className="bg-gray-500 text-white py-2 px-4 rounded">
+          <button onClick={stopScan} disabled={!scanning} className="bg-gray-500 text-white py-2 px-4 rounded">
             スキャン停止
           </button>
         </div>
