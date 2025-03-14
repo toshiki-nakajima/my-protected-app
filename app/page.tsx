@@ -134,18 +134,18 @@ import jsQR from 'jsqr';
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [scanning, setScanning] = useState(false);
+  const scanningRef = useRef(false);
   const [result, setResult] = useState('結果がここに表示されます');
   const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
 
   const startScan = async () => {
-    if (scanning) return;
+    if (scanningRef.current) return;
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment' },
       });
-      setScanning(true);
+      scanningRef.current = true;
       setVideoStream(stream);
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -160,9 +160,9 @@ export default function Home() {
   };
 
   const stopScan = () => {
-    if (!scanning) return;
+    if (!scanningRef.current) return;
 
-    setScanning(false);
+    scanningRef.current = false;
     if (videoStream) {
       videoStream.getTracks().forEach((track) => {
         track.stop();
@@ -173,7 +173,7 @@ export default function Home() {
   };
 
   const tick = () => {
-    if (!scanning || !videoRef.current) return;
+    if (!scanningRef.current || !videoRef.current) return;
 
     const video = videoRef.current;
     const canvasElement = document.createElement('canvas');
