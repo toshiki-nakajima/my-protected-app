@@ -8,6 +8,8 @@ export default function Home() {
   const [scanning, setScanning] = useState(false);
   const videoStreamRef = useRef<MediaStream | null>(null);
   const [result, setResult] = useState('結果がここに表示されます');
+  const scannedUid = useRef<string | null>(null);
+  const [pointToAdd, setPointToAdd] = useState<number>(0);
 
   const startScan = async () => {
     if (scanningRef.current) return;
@@ -67,9 +69,10 @@ export default function Home() {
           console.log('QRコードを検出しました', code);
           setResult(`検出内容: ${code.data}`);
 
-          if (code.data.startsWith('http')) {
-            window.open(code.data, '_blank');
-          }
+          // if (code.data.startsWith('http')) {
+          //   window.open(code.data, '_blank');
+          // }
+          scannedUid.current = code.data;
 
           stopScan();
           return;
@@ -80,6 +83,10 @@ export default function Home() {
     requestAnimationFrame(tick);
   };
 
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const point = Number(e.target.value);
+    setPointToAdd(point);
+  }
   return (
     <div className="container mx-auto p-8 max-w-3xl">
       <h1 className="text-3xl font-bold mb-4">QR/バーコードリーダー</h1>
@@ -89,17 +96,20 @@ export default function Home() {
         <video id="qr-video" ref={videoRef} className="w-full max-w-md border-3 border-gray-300 rounded-lg" playsInline></video>
       </div>
 
-        <div className="mb-4 flex">
-          <button onClick={startScan} disabled={scanning} className="bg-green-500 text-white py-2 px-4 rounded mr-2">
-            スキャン開始
-          </button>
-          <button onClick={stopScan} disabled={!scanning} className="bg-gray-500 text-white py-2 px-4 rounded">
-            スキャン停止
-          </button>
-          {scanningRef.current && <div className="recording-mark m-4 w-4 h-4 bg-red-500 rounded-full"></div>}
-        </div>
-
-        <div id="result" className="p-4 bg-gray-100 rounded shadow-sm">{result}</div>
+      <div className="mb-4 flex">
+        <button onClick={startScan} disabled={scanning} className="bg-green-500 text-white py-2 px-4 rounded mr-2">
+          スキャン開始
+        </button>
+        <button onClick={stopScan} disabled={!scanning} className="bg-gray-500 text-white py-2 px-4 rounded">
+          スキャン停止
+        </button>
+        {scanningRef.current && <div className="recording-mark m-4 w-4 h-4 bg-red-500 rounded-full"></div>}
       </div>
+
+      <div id="result" className="p-4 bg-gray-100 rounded shadow-sm">{result}</div>
+      <div>
+        <input onInput={inputHandler} type="number" value={pointToAdd} min="0" max="10"/>
+      </div>
+    </div>
   );
 }
