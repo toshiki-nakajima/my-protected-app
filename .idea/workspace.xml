@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="削除">
+    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="ポイント入力欄">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +94,23 @@
       <option name="project" value="LOCAL" />
       <updated>1741947830552</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="postの下準備">
+      <option name="closed" value="true" />
+      <created>1741955455256</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741955455256</updated>
+    </task>
+    <task id="LOCAL-00004" summary="ポイント入力欄">
+      <option name="closed" value="true" />
+      <created>1741963200524</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741963200524</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,6 +119,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="scanningRef" />
     <MESSAGE value="削除" />
-    <option name="LAST_COMMIT_MESSAGE" value="削除" />
+    <MESSAGE value="postの下準備" />
+    <MESSAGE value="ポイント入力欄" />
+    <option name="LAST_COMMIT_MESSAGE" value="ポイント入力欄" />
   </component>
 </project>

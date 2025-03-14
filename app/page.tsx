@@ -115,7 +115,7 @@ export default function Home() {
   }
   return (
     <div className="container mx-auto p-8 max-w-3xl">
-      <h1 className="text-3xl font-bold mb-4">QR/バーコードリーダー</h1>
+      <h1 className="text-3xl font-bold mb-4 text-black">QR/バーコードリーダー</h1>
       <p className="mb-6 text-gray-700">カメラを使ってQRコードやバーコードを読み取ります</p>
 
       <div id="video-container" className="mb-4">
@@ -132,9 +132,9 @@ export default function Home() {
         {scanningRef.current && <div className="recording-mark m-4 w-4 h-4 bg-red-500 rounded-full"></div>}
       </div>
 
-      <div id="result" className="mb-4 p-4 bg-gray-100 rounded shadow-sm">{result}</div>
+      <div id="result" className="mb-4 p-4 bg-gray-100 rounded shadow-sm text-black">{result}</div>
 
-      <div className="mb-4 flex gap-1 items-center">
+      <div className="mb-4 flex gap-1 items-center text-black">
         <span>追加するポイント</span>
         <input className="border-3 border-gray-400 p-1 rounded-md" ref={inputRef} onInput={inputHandler} type="number" value={pointToAdd} min="1" max="10"/>
         <span>P</span>
