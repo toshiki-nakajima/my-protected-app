@@ -86,16 +86,16 @@ export default function Home() {
         <video id="qr-video" ref={videoRef} className="w-full max-w-md border-3 border-gray-300 rounded-lg" playsInline></video>
       </div>
 
-      <div className="mb-4">
-        <button onClick={startScan} disabled={scanning} className="bg-green-500 text-white py-2 px-4 rounded mr-2">
-          スキャン開始
-        </button>
-        <button onClick={stopScan} disabled={!scanning} className="bg-gray-500 text-white py-2 px-4 rounded">
-          スキャン停止
-        </button>
-      </div>
+        <div className="mb-4">
+          <button onClick={startScan} disabled={scanningRef.current} className="bg-green-500 text-white py-2 px-4 rounded mr-2">
+            スキャン開始
+          </button>
+          <button onClick={stopScan} disabled={!scanningRef.current} className="bg-gray-500 text-white py-2 px-4 rounded">
+            スキャン停止
+          </button>
+        </div>
 
-      <div id="result" className="p-4 bg-gray-100 rounded shadow-sm">{result}</div>
-    </div>
+        <div id="result" className="p-4 bg-gray-100 rounded shadow-sm">{result}</div>
+      </div>
   );
 }
