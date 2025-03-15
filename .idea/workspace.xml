@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="送信後にuidを忘れるようにする">
+    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="post log">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/hello/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/hello/route.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +54,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
     "ts.external.directory.path": "/Users/t-nakajima/WebstormProjects/my-protected-app/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -80,7 +79,8 @@
       <workItem from="1741947062950" duration="821000" />
       <workItem from="1742007902744" duration="1832000" />
       <workItem from="1742011149011" duration="7723000" />
-      <workItem from="1742020676424" duration="860000" />
+      <workItem from="1742020676424" duration="1329000" />
+      <workItem from="1742022015142" duration="4238000" />
     </task>
     <task id="LOCAL-00001" summary="scanningRef">
       <option name="closed" value="true" />
@@ -122,11 +122,46 @@
       <option name="project" value="LOCAL" />
       <updated>1742016094599</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="get log">
+      <option name="closed" value="true" />
+      <created>1742024598235</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1742024598235</updated>
+    </task>
+    <task id="LOCAL-00007" summary="interface">
+      <option name="closed" value="true" />
+      <created>1742024616086</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1742024616086</updated>
+    </task>
+    <task id="LOCAL-00008" summary="post log">
+      <option name="closed" value="true" />
+      <created>1742024628280</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1742024628280</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="scanningRef" />
@@ -134,6 +169,9 @@
     <MESSAGE value="postの下準備" />
     <MESSAGE value="ポイント入力欄" />
     <MESSAGE value="送信後にuidを忘れるようにする" />
-    <option name="LAST_COMMIT_MESSAGE" value="送信後にuidを忘れるようにする" />
+    <MESSAGE value="get log" />
+    <MESSAGE value="interface" />
+    <MESSAGE value="post log" />
+    <option name="LAST_COMMIT_MESSAGE" value="post log" />
   </component>
 </project>

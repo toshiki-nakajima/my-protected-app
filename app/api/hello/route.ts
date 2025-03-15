@@ -21,11 +21,10 @@ export async function POST(request: NextRequest) {
     console.log('POST request received');
     try {
         const body = await request.json();
-        const openApiBaseUrl= process.env.OPEN_API_BASE_URL;
-        const openApiPathOfAction= process.env.OPEN_API_ACTION_PATH;
+        const openApiActionBasePath = process.env.OPEN_API_ACTION_BASE_PATH;
         const openApiCode = process.env.OPEN_API_CODE
         const openApiTriggerOfAddingPoints = process.env.OPEN_API_TRIGGER_OF_ADDING_POINTS;
-        const postUrl = `${openApiBaseUrl}/${openApiPathOfAction}/${openApiCode}/${openApiTriggerOfAddingPoints}`;
+        const postUrl = `${openApiActionBasePath}/${openApiCode}/${openApiTriggerOfAddingPoints}`;
         const openApiToken = process.env.OPEN_API_TOKEN;
         // Process the data
         const {uid, points} = body as RequestedBodyFromClient;
