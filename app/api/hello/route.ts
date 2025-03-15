@@ -42,11 +42,11 @@ export async function POST(request: NextRequest) {
                 'Authorization': `Bearer ${openApiToken}`
             },
             body: JSON.stringify(bodyToRequest)
-        }).then(res => res.json()).then(
-            (res) => {
-                console.log(res);
-            }
-        ).catch(err => console.log(err));
+        }).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.error(err);
+        })
 
 
         return NextResponse.json({
