@@ -5,6 +5,18 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({message: 'Hello API'});
 }
 
+interface RequestedBodyFromClient {
+    uid: string;
+    points: number;
+    timestamp: string;
+}
+interface BodyToRequestForOpenApi {
+    uid: string;
+    params: ParamsForOpenApi;
+}
+interface ParamsForOpenApi {
+    points: number;
+}
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
