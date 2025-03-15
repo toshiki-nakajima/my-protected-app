@@ -124,8 +124,8 @@ export default function Home() {
         timestamp: new Date().toISOString()
       };
 
-      // Make POST request to httpbin.org/anything
-      const response = await fetch('https://httpbin.org/anything', {
+      // Make POST request to our local API endpoint
+      const response = await fetch('/api/hello', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
