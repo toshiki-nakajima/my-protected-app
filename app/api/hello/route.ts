@@ -18,6 +18,7 @@ interface ParamsForOpenApi {
     points: number;
 }
 export async function POST(request: NextRequest) {
+    console.log('POST request received');
     try {
         const body = await request.json();
         // Process the data
