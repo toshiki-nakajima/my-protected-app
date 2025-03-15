@@ -11,6 +11,8 @@ export default function Home() {
   const scannedUid = useRef<string | null>(null);
   const [pointToAdd, setPointToAdd] = useState<number>(1);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [apiResponse, setApiResponse] = useState<string | null>(null);
 
   const startScan = async () => {
     if (scanningRef.current) return;
@@ -104,46 +106,94 @@ export default function Home() {
     setPointToAdd(point);
   }
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     if (!scannedUid.current) {
-        console.log('QRコードを読み取ってください');
-        setResult('QRコードを読み取ってください');
-        return;
+      console.log('QRコードを読み取ってください');
+      setResult('QRコードを読み取ってください');
+      return;
     }
-    console.log('ポイントを追加: ', pointToAdd);
-    setResult(`ポイントを追加: ${pointToAdd}P`);
+
+    setIsSubmitting(true);
+    setResult('送信中...');
+
+    try {
+      // Create data object to send
+      const postData = {
+        uid: scannedUid.current,
+        points: pointToAdd,
+        timestamp: new Date().toISOString()
+      };
+
+      // Make POST request to httpbin.org/anything
+      const response = await fetch('https://httpbin.org/anything', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('API response:', data);
+
+      // Set success message
+      setResult(`ポイント ${pointToAdd}P を追加しました！`);
+      setApiResponse(JSON.stringify(data, null, 2));
+    } catch (error) {
+      console.error('送信エラー:', error);
+      setResult(`エラー: ポイント追加に失敗しました`);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
+
   return (
-    <div className="container mx-auto p-8 max-w-3xl">
-      <h1 className="text-3xl font-bold mb-4 text-black">QR/バーコードリーダー</h1>
-      <p className="mb-6 text-gray-700">カメラを使ってQRコードやバーコードを読み取ります</p>
+      <div className="container mx-auto p-8 max-w-3xl">
+        <h1 className="text-3xl font-bold mb-4 text-black">QR/バーコードリーダー</h1>
+        <p className="mb-6 text-gray-700">カメラを使ってQRコードやバーコードを読み取ります</p>
 
-      <div id="video-container" className="mb-4">
-        <video id="qr-video" ref={videoRef} className="w-full max-w-md border-3 border-gray-300 rounded-lg" playsInline></video>
+        <div id="video-container" className="mb-4">
+          <video id="qr-video" ref={videoRef} className="w-full max-w-md border-3 border-gray-300 rounded-lg" playsInline></video>
+        </div>
+
+        <div className="mb-4 flex">
+          <button onClick={startScan} disabled={scanning} className="bg-green-500 text-white py-2 px-4 rounded mr-2">
+            スキャン開始
+          </button>
+          <button onClick={stopScan} disabled={!scanning} className="bg-gray-500 text-white py-2 px-4 rounded">
+            スキャン停止
+          </button>
+          {scanningRef.current && <div className="recording-mark m-4 w-4 h-4 bg-red-500 rounded-full"></div>}
+        </div>
+
+        <div id="result" className="mb-4 p-4 bg-gray-100 rounded shadow-sm text-black">{result}</div>
+
+        <div className="mb-4 flex gap-1 items-center text-black">
+          <span>追加するポイント</span>
+          <input className="border-3 border-gray-400 p-1 rounded-md" ref={inputRef} onInput={inputHandler} type="number" value={pointToAdd} min="1" max="10"/>
+          <span>P</span>
+        </div>
+
+        <div className="mb-4">
+          <button
+              className={`py-2 px-4 rounded ${isSubmitting ? 'bg-gray-400' : 'bg-blue-500'} text-white`}
+              onClick={submitHandler}
+              disabled={isSubmitting}
+          >
+            {isSubmitting ? '送信中...' : 'ポイント追加'}
+          </button>
+        </div>
+
+        {apiResponse && (
+            <div className="mt-4">
+              <h2 className="text-lg font-semibold mb-2 text-black">API レスポンス:</h2>
+              <pre className="bg-gray-100 p-4 rounded overflow-auto max-h-60 text-xs text-black">{apiResponse}</pre>
+            </div>
+        )}
       </div>
-
-      <div className="mb-4 flex">
-        <button onClick={startScan} disabled={scanning} className="bg-green-500 text-white py-2 px-4 rounded mr-2">
-          スキャン開始
-        </button>
-        <button onClick={stopScan} disabled={!scanning} className="bg-gray-500 text-white py-2 px-4 rounded">
-          スキャン停止
-        </button>
-        {scanningRef.current && <div className="recording-mark m-4 w-4 h-4 bg-red-500 rounded-full"></div>}
-      </div>
-
-      <div id="result" className="mb-4 p-4 bg-gray-100 rounded shadow-sm text-black">{result}</div>
-
-      <div className="mb-4 flex gap-1 items-center text-black">
-        <span>追加するポイント</span>
-        <input className="border-3 border-gray-400 p-1 rounded-md" ref={inputRef} onInput={inputHandler} type="number" value={pointToAdd} min="1" max="10"/>
-        <span>P</span>
-      </div>
-
-      <div className="mb-4">
-        <button className="bg-blue-500 text-white py-2 px-4 rounded" onClick={submitHandler}>ポイント追加</button>
-      </div>
-
-    </div>
   );
 }
