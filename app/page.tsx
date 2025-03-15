@@ -143,6 +143,9 @@ export default function Home() {
       // Set success message
       setResult(`ポイント ${pointToAdd}P を追加しました！`);
       setApiResponse(JSON.stringify(data, null, 2));
+      
+      // スキャン済みのUIDをクリア
+      scannedUid.current = null;
     } catch (error) {
       console.error('送信エラー:', error);
       setResult(`エラー: ポイント追加に失敗しました`);
@@ -180,9 +183,9 @@ export default function Home() {
 
         <div className="mb-4">
           <button
-              className={`py-2 px-4 rounded ${isSubmitting ? 'bg-gray-400' : 'bg-blue-500'} text-white`}
+              className={`py-2 px-4 rounded ${isSubmitting ? 'bg-gray-400' : scannedUid.current ? 'bg-blue-500' : 'bg-gray-400'} text-white`}
               onClick={submitHandler}
-              disabled={isSubmitting}
+              disabled={isSubmitting || !scannedUid.current}
           >
             {isSubmitting ? '送信中...' : 'ポイント追加'}
           </button>
