@@ -34,6 +34,7 @@
 // }
 
 // app/layout.tsx
+import {AuthProvider} from "@/app/context/AuthContext";
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -41,8 +42,8 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Basic認証によって保護されたアプリ',
-  description: 'Next.js App RouterとBasic認証を使用した保護されたアプリケーション',
+  title: '保護されたアプリ',
+  description: 'Next.js App Routerとfireauthで保護されたアプリケーション',
 };
 
 export default function RootLayout({
@@ -54,7 +55,7 @@ export default function RootLayout({
     <html lang="ja">
       <body className={inter.className}>
         <main className="min-h-screen bg-white py-8">
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </main>
       </body>
     </html>
