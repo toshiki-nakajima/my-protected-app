@@ -24,6 +24,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 
   // basic認証にしてた時の名残
+  // 登録画面はbasic認証を入れても良いかもしれない
   // // Basic認証のヘッダーを確認
   // const authHeader = request.headers.get('authorization');
   //
