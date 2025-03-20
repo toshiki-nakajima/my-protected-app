@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="fix: json返してなかったわ">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/hello/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/hello/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/dashboard/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +63,9 @@
   },
   "keyToStringList": {
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "TypeScript JSX",
+      "TypeScript",
+      "TEXT",
       "JavaScript"
     ]
   }
@@ -92,7 +95,7 @@
       <workItem from="1742352816615" duration="517000" />
       <workItem from="1742364427333" duration="18324000" />
       <workItem from="1742400038212" duration="3162000" />
-      <workItem from="1742434890698" duration="4425000" />
+      <workItem from="1742434890698" duration="13100000" />
     </task>
     <task id="LOCAL-00001" summary="scanningRef">
       <option name="closed" value="true" />

@@ -21,6 +21,8 @@ export async function POST(request: NextRequest) {
     console.log('POST request received');
     try {
         const body = await request.json();
+        console.log('POST request body:', body);
+
         const openApiActionBasePath = process.env.OPEN_API_ACTION_BASE_PATH;
         const openApiCode = process.env.OPEN_API_CODE
         const openApiTriggerOfAddingPoints = process.env.OPEN_API_TRIGGER_OF_ADDING_POINTS;

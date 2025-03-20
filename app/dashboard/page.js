@@ -138,6 +138,21 @@ export default function Dashboard() {
     setPointToAdd(pointToAdd - 1);
   }
 
+  const getFormattedJST = () => {
+    return new Date().toLocaleString(
+      "ja-JP",
+      {
+        timeZone: 'Asia/Tokyo',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      }
+    ).replace(/\//g, '-');
+  }
+
   const submitHandler = async () => {
     if (!scannedUid.current) {
       console.log('QRコードを読み取ってください');
@@ -153,7 +168,7 @@ export default function Dashboard() {
       const postData = {
         uid: scannedUid.current,
         points: pointToAdd,
-        timestamp: new Date().toISOString()
+        timestamp: getFormattedJST()
       };
       console.log('Sending data:', postData);
 
