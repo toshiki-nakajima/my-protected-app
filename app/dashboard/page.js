@@ -212,6 +212,7 @@ export default function Dashboard() {
           <p className="mb-6 text-gray-700">カメラを使ってQRコードやバーコードを読み取ります</p>
         </div>
 
+
         <button
           onClick={handleLogout}
           className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"

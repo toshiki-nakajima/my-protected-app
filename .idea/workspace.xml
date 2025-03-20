@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="fix: json返してなかったわ">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/hello/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/hello/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/page.js" afterDir="false" />
-    </list>
+    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="fix: json返してなかったわ" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
