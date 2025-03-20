@@ -83,7 +83,10 @@ export default function Home() {
       }
     }
 
-    requestAnimationFrame(tick);
+    setTimeout(() => {
+        requestAnimationFrame(tick);
+    }, 100);
+    // requestAnimationFrame(tick);
   };
 
   useEffect(() => {
