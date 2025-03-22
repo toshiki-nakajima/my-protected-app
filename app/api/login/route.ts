@@ -4,7 +4,7 @@ import {db, auth, admin} from '../../fireadmin/config';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-export async function POST(req: NextRequest, _: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
         const {id, password} = await req.json();
         console.log('login request received:', id, password);
