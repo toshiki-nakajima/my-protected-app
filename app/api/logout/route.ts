@@ -17,7 +17,7 @@ export async function POST() {
         try {
             const jwtSecret = process.env.REFRESH_TOKEN_SECRET as string;
             // @ts-ignore
-            decoded = jwt.verify(refreshToken, jwtSecret);
+            decoded = jwt.verify(refreshToken.value, jwtSecret);
         } catch (e) {
             console.error('Invalid refresh token when verifying', e);
             return NextResponse.json({

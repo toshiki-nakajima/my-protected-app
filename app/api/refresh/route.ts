@@ -18,7 +18,7 @@ export async function POST() {
         let decoded;
         try {
             // @ts-ignore
-            decoded = jwt.verify(refreshToken, jwtSecret);
+            decoded = jwt.verify(refreshToken.value, jwtSecret);
         } catch (err) {
             console.error("Invalid refresh token when verifying", err);
             return NextResponse.json({

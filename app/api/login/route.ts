@@ -22,6 +22,7 @@ export async function POST(req: NextRequest, _: NextResponse) {
 
         const refreshToken = generateRefreshToken(docId);
         // Save the refresh token to Firestore
+        // todo: jwtの保存にTTLをつけたい
         await db.collection('refreshTokens').doc(docId).set({
             token: refreshToken,
             createAt: admin.firestore.FieldValue.serverTimestamp()
@@ -111,7 +112,7 @@ const generateRefreshToken = (userDocId: string) => {
     const options = {
         expiresIn,
     }
-    const jwtSecret = process.env.JWT_SECRET as string;
+    const jwtSecret = process.env.REFRESH_TOKEN_SECRET as string;
     return jwt.sign(payload, jwtSecret, options);
 }
 
