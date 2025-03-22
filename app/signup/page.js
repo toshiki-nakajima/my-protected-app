@@ -21,12 +21,14 @@ export default function Signup() {
 
     try {
       // ユーザーデータを含めて登録
+      // todo: ここちゃんとやる
       await signup(email, password, {
         name,
         // 他に必要なユーザーデータを追加
       });
 
       // 登録成功後にダッシュボードなどにリダイレクト
+      // todo: ここも変更する
       router.push('/login');
     } catch (error) {
       console.log(error);

@@ -5,7 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="fix: json返してなかったわ">
+      <change afterPath="$PROJECT_DIR$/app/api/employees/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/login/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/logout/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/refresh/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/signup/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/fireadmin/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/context/AuthContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/context/AuthContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/login/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/login/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/signup/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/signup/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +30,7 @@
       <list>
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -45,29 +59,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#1 on feat/auth__system",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
-    "ts.external.directory.path": "/Users/t-nakajima/WebstormProjects/my-protected-app/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;new__auth&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/t-nakajima/WebstormProjects/my-protected-app/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "TypeScript JSX",
-      "TypeScript",
-      "TEXT",
-      "JavaScript"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;TEXT&quot;,
+      &quot;JavaScript&quot;,
+      &quot;TypeScript JSX&quot;,
+      &quot;TypeScript&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -94,6 +108,17 @@
       <workItem from="1742364427333" duration="18324000" />
       <workItem from="1742400038212" duration="3162000" />
       <workItem from="1742434890698" duration="13100000" />
+      <workItem from="1742482596565" duration="15000" />
+      <workItem from="1742487447001" duration="16000" />
+      <workItem from="1742549120448" duration="626000" />
+      <workItem from="1742613516537" duration="1664000" />
+      <workItem from="1742615228750" duration="26000" />
+      <workItem from="1742615257149" duration="20886000" />
+      <workItem from="1742643345129" duration="3003000" />
+      <workItem from="1742646468270" duration="1271000" />
+      <workItem from="1742647743468" duration="6463000" />
+      <workItem from="1742654212912" duration="12229000" />
+      <workItem from="1742666451806" duration="6877000" />
     </task>
     <task id="LOCAL-00001" summary="scanningRef">
       <option name="closed" value="true" />
