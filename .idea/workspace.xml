@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="fix: json返してなかったわ">
-      <change beforePath="$PROJECT_DIR$/app/api/login/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/login/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/signup/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/signup/route.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +112,7 @@
       <workItem from="1742647743468" duration="6463000" />
       <workItem from="1742654212912" duration="12229000" />
       <workItem from="1742666451806" duration="6877000" />
-      <workItem from="1742673335028" duration="1297000" />
+      <workItem from="1742673335028" duration="3937000" />
     </task>
     <task id="LOCAL-00001" summary="scanningRef">
       <option name="closed" value="true" />
