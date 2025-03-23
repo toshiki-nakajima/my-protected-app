@@ -73,13 +73,13 @@ export const AuthProvider = ({children}) => {
       Cookies.set('session', token, {
         expires: COOKIE_EXPIRES,
         secure: process.env.NODE_ENV === 'production',
-        samiSite: 'Lax'
+        sameSite: 'Strict'
       })
 
       Cookies.set('user_id', currentUser.uid, {
         expires: COOKIE_EXPIRES,
         secure: process.env.NODE_ENV === 'production',
-        samiSite: 'Lax'
+        sameSite: 'Strict'
       })
       return;
     }
@@ -89,6 +89,7 @@ export const AuthProvider = ({children}) => {
 
   // ユーザー登録関数
   const signup = async (id , password, profileData) => {
+    setSubmitting(true);
     try {
       const response = await fetch('/api/signup', {
         method: 'POST',
@@ -106,6 +107,8 @@ export const AuthProvider = ({children}) => {
       return true;
     } catch (error) {
       throw error;
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -129,7 +132,8 @@ export const AuthProvider = ({children}) => {
 
       const {accessToken, expiresIn} = await response.json();
 
-      await signInWithCustomToken(auth, accessToken);
+      const userCredential = await signInWithCustomToken(auth, accessToken);
+      await saveSession(userCredential.user);
       const expiredAt = String(Date.now() + expiresIn * 1000);
       localStorage.setItem(ACCESS_TOKEN_EXPIRES_AT, expiredAt);
 
@@ -161,6 +165,7 @@ export const AuthProvider = ({children}) => {
 
   const refreshAccessToken = async () => {
     try {
+      // 実はgetIdToken()を使ってもリフレッシュトークンは取得できる?
       const response = await fetch('/api/refresh', {
         method: 'POST',
         credentials: 'include'
@@ -194,6 +199,7 @@ export const AuthProvider = ({children}) => {
           credentials: 'include'
         })
         localStorage.removeItem(ACCESS_TOKEN_EXPIRES_AT);
+        deleteUserDataCache();
         await saveSession(null);
       } catch (error) {
         throw error;
@@ -230,7 +236,16 @@ export const AuthProvider = ({children}) => {
     }
   };
 
+  const deleteUserDataCache = () => {
+    try {
+      localStorage.removeItem(USER_DATA_CACHE_KEY);
+    } catch (error) {
+      console.error('Cache deletion error:', error);
+    }
+  }
+
   // ユーザーデータを強制的に最新化する関数
+  // 実質使ってない
   const refreshUserData = async () => {
     if (!user) return null;
 
@@ -249,12 +264,13 @@ export const AuthProvider = ({children}) => {
   useEffect(() => {
     // 認証状態の変更を監視
     const authStateUnsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      // アプリ起動時、ログイン時、ログアウト時に呼ばれる
       console.log("Auth state changed:", currentUser);
 
       setUser(currentUser);
 
       if (currentUser) {
-        // ユーザーデータを取得（ログイン時）
+        // ユーザーデータを取得（ログイン状態）
         try {
           const data = await getUserData(currentUser.uid);
           setUserData(data);
@@ -262,10 +278,12 @@ export const AuthProvider = ({children}) => {
           console.error("Error fetching user data on auth change:", error);
         }
       } else {
-        // ログアウト時
+        // ログアウト状態
         setUserData(null);
       }
 
+      // Cookieが削除されていた時のためにセッションを保存
+      // あくまでログイン状態はFirebaseの認証情報で管理
       await saveSession(currentUser)
       setLoading(false);
     });

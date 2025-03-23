@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
 
 
   // ログイン済みのユーザーは /login や /signup にアクセスできないようにする
-  if (isAuthenticated && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
+  if (isAuthenticated && (request.nextUrl.pathname === '/login')) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
@@ -21,6 +21,35 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
+  // Basic認証のヘッダーを確認
+  const authHeader = request.headers.get('authorization');
+
+  // members(従業員)の閲覧、登録、編集、削除画面にのみBasic認証を適用
+  //  members/list, members/signup, members/edit, members/delete
+  if (request.nextUrl.pathname.startsWith('/members')) {
+    if (authHeader) {
+      // Basic認証のヘッダーをデコード
+      const auth = authHeader.split(' ')[1];
+      const [user, pwd] = Buffer.from(auth, 'base64').toString().split(':');
+
+      // 環境変数から認証情報を取得
+      const USERNAME = process.env.BASIC_AUTH_USER;
+      const PASSWORD = process.env.BASIC_AUTH_PASSWORD;
+
+      // 認証情報が一致する場合はリクエストを通す
+      if (user === USERNAME && pwd === PASSWORD) {
+        return NextResponse.next();
+      }
+    }
+
+    // 認証失敗時のレスポンス
+    return new NextResponse('認証が必要です', {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Secure Area"',
+      },
+    });
+  }
   return NextResponse.next();
 
   // basic認証にしてた時の名残
