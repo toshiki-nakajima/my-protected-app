@@ -173,7 +173,7 @@ export default function Dashboard() {
       console.log('Sending data:', postData);
 
       // Make POST request to our local API endpoint
-      const response = await fetch('/api/hello', {
+      const response = await fetch('/api/add-points', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,7 +1,24 @@
 // middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
+import {generateCSRFToken} from "@/app/libs/csrf";
 
 export function middleware(request: NextRequest) {
+
+  const nextWithCSRFToken = () => {
+    const res = NextResponse.next();
+    const csrfToken = request.cookies.get('csrf_token')?.value;
+    if (!csrfToken) {
+      const csrfToken = generateCSRFToken();
+      res.cookies.set("csrf_token", csrfToken, {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        path: '/'
+      })
+    }
+    return res;
+  }
+
   // セッションクッキーを確認
   const session = request.cookies.get('session');
   const userId = request.cookies.get('user_id');
@@ -38,7 +55,7 @@ export function middleware(request: NextRequest) {
 
       // 認証情報が一致する場合はリクエストを通す
       if (user === USERNAME && pwd === PASSWORD) {
-        return NextResponse.next();
+        return nextWithCSRFToken();
       }
     }
 
@@ -50,35 +67,7 @@ export function middleware(request: NextRequest) {
       },
     });
   }
-  return NextResponse.next();
-
-  // basic認証にしてた時の名残
-  // 登録画面はbasic認証を入れても良いかもしれない
-  // // Basic認証のヘッダーを確認
-  // const authHeader = request.headers.get('authorization');
-  //
-  // if (authHeader) {
-  //   // Basic認証のヘッダーをデコード
-  //   const auth = authHeader.split(' ')[1];
-  //   const [user, pwd] = Buffer.from(auth, 'base64').toString().split(':');
-  //
-  //   // 環境変数から認証情報を取得
-  //   const USERNAME = process.env.BASIC_AUTH_USER;
-  //   const PASSWORD = process.env.BASIC_AUTH_PASSWORD;
-  //
-  //   // 認証情報が一致する場合はリクエストを通す
-  //   if (user === USERNAME && pwd === PASSWORD) {
-  //     return NextResponse.next();
-  //   }
-  // }
-  //
-  // // 認証失敗時のレスポンス
-  // return new NextResponse('認証が必要です', {
-  //   status: 401,
-  //   headers: {
-  //     'WWW-Authenticate': 'Basic realm="Secure Area"',
-  //   },
-  // });
+  return nextWithCSRFToken();
 }
 
 // 特定のパスのみにミドルウェアを適用する場合
