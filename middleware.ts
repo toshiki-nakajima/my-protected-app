@@ -1,6 +1,7 @@
 // middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
-import {generateCSRFToken} from "@/app/libs/csrf";
+import {generateCSRFToken} from "@/app/lib/middleware/csrf";
+import {checkCSRF, checkReferer} from "@/app/lib/middleware/securityCheck";
 
 export function middleware(request: NextRequest) {
 
@@ -19,10 +20,23 @@ export function middleware(request: NextRequest) {
     return res;
   }
 
+  // APIリクエストの場合はリファラーチェックとCSRFチェックを行う
+  if (request.nextUrl.pathname.startsWith('/api/') && request.method !== 'GET') {
+    console.log('API request received');
+    // リファラーチェック
+    const refererError = checkReferer(request);
+    if (refererError) return refererError;
+
+    // CSRFチェック
+    const csrfError = checkCSRF(request);
+    if (csrfError) return csrfError;
+
+    return NextResponse.next()
+  }
+
   // セッションクッキーを確認
   const session = request.cookies.get('session');
   const userId = request.cookies.get('user_id');
-
   const isAuthenticated = session && userId;
 
 
@@ -75,6 +89,6 @@ export const config = {
   matcher: [
     // 保護したいパスを指定
     // public, _nextなどは除外する
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 };

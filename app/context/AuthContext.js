@@ -6,6 +6,7 @@ import {doc, getDoc} from 'firebase/firestore';
 import {auth, db} from '../firebase/config';
 import {signInWithCustomToken, getIdToken} from 'firebase/auth';
 import Cookies from 'js-cookie';
+import {useCSRF} from "@/app/hooks/useCSRF";
 
 const USER_DATA_CACHE_KEY = 'cachedUserData'
 const COOKIE_EXPIRES = 1; // 1 day
@@ -65,6 +66,7 @@ export const AuthProvider = ({children}) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const csrfToken = useCSRF();
 
   const saveSession = async (currentUser) => {
     if (currentUser) {
@@ -94,7 +96,7 @@ export const AuthProvider = ({children}) => {
       const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({id, password, profileData}),
         credentials: 'include' // これいらないかも
@@ -119,7 +121,8 @@ export const AuthProvider = ({children}) => {
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-csrf-token': csrfToken
         },
         body: JSON.stringify({id, password}),
         credentials: 'include' // これいらないかも

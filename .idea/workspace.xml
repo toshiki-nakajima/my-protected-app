@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="feat: 認証の所直す＆basic認証入れる">
-      <change afterPath="$PROJECT_DIR$/app/api/add-points/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/api/csrf/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/csrf-test/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/hooks/useCSRF.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/libs/csrf.ts" afterDir="false" />
+    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="feat: csrf-base">
+      <change afterPath="$PROJECT_DIR$/app/lib/middleware/securityCheck.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api/hello/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/hello/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/context/AuthContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/context/AuthContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/libs/csrf.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/middleware/csrf.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/members/signup/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/members/signup/page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/middleware.ts" afterDir="false" />
     </list>
@@ -85,6 +82,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/lib/middleware" />
       <recent name="$PROJECT_DIR$/app/members" />
     </key>
   </component>
@@ -140,7 +138,7 @@
       <workItem from="1743057036502" duration="85000" />
       <workItem from="1743057880793" duration="40000" />
       <workItem from="1743058695418" duration="4220000" />
-      <workItem from="1743062923994" duration="148000" />
+      <workItem from="1743062923994" duration="4761000" />
     </task>
     <task id="LOCAL-00001" summary="scanningRef">
       <option name="closed" value="true" />
@@ -214,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742744309978</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat: csrf-base">
+      <option name="closed" value="true" />
+      <created>1743063347213</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063347213</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,6 +247,7 @@
     <MESSAGE value="interface" />
     <MESSAGE value="post log" />
     <MESSAGE value="feat: 認証の所直す＆basic認証入れる" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 認証の所直す＆basic認証入れる" />
+    <MESSAGE value="feat: csrf-base" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: csrf-base" />
   </component>
 </project>
