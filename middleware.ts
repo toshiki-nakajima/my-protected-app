@@ -22,7 +22,6 @@ export function middleware(request: NextRequest) {
 
   // APIリクエストの場合はリファラーチェックとCSRFチェックを行う
   if (request.nextUrl.pathname.startsWith('/api/') && request.method !== 'GET') {
-    console.log('API request received');
     // リファラーチェック
     const refererError = checkReferer(request);
     if (refererError) return refererError;

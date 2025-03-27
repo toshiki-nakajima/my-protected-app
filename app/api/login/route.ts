@@ -7,7 +7,6 @@ import bcrypt from 'bcrypt';
 export async function POST(req: NextRequest) {
     try {
         const {id, password} = await req.json();
-        console.log('login request received:', id, password);
         const result = await validateAndGetUser(id, password);
         if (result.type === 'failure') {
             console.log(result);
