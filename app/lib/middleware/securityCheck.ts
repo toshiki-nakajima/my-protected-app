@@ -15,8 +15,6 @@ export function checkCSRF(request: NextRequest) {
     const csrfCookie = request.cookies.get("csrf_token")?.value;
     const csrfHeader = request.headers.get("x-csrf-token");
 
-    console.log(csrfCookie);
-    console.log(csrfHeader);
     if (!csrfCookie || !csrfHeader) {
         return NextResponse.json({success: false, error: "No Csrf Token"}, {status: 403});
     }

@@ -10,7 +10,6 @@ export const useCSRF = () => {
         fetch('api/csrf')
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 if (data?.csrfToken) {
                     setCSRFToken(data.csrfToken);
                 }
@@ -18,7 +17,7 @@ export const useCSRF = () => {
             .catch((error) => {
                 console.error(error);
             })
-    })
+    }, [])
 
     return csrfToken;
 }

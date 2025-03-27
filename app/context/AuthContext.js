@@ -1,6 +1,6 @@
 'use client';
 
-import {createContext, useContext, useEffect, useState, useMemo} from 'react';
+import {createContext, useContext, useEffect, useState, useMemo, useRef} from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import {doc, getDoc} from 'firebase/firestore';
 import {auth, db} from '../firebase/config';
@@ -66,7 +66,8 @@ export const AuthProvider = ({children}) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const csrfToken = useCSRF();
+  const csrfToken = useRef("");
+  csrfToken.current = useCSRF();
 
   const saveSession = async (currentUser) => {
     if (currentUser) {
@@ -97,9 +98,10 @@ export const AuthProvider = ({children}) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-csrf-token': csrfToken.current,
         },
         body: JSON.stringify({id, password, profileData}),
-        credentials: 'include' // これいらないかも
+        credentials: 'include'
       });
       if (!response.ok) {
         response.json().then((data) => {
@@ -122,10 +124,10 @@ export const AuthProvider = ({children}) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-csrf-token': csrfToken
+          'x-csrf-token': csrfToken.current
         },
         body: JSON.stringify({id, password}),
-        credentials: 'include' // これいらないかも
+        credentials: 'include'
       })
       if (!response.ok) {
         const data = await response.json();
@@ -152,6 +154,7 @@ export const AuthProvider = ({children}) => {
   };
 
   const setUpAccessTokenRefresh = () => {
+    console.log('Setting up access token refresh');
     if (window.accessTokenRefresher) {
       clearTimeout(window.accessTokenRefresher);
     }
@@ -167,10 +170,14 @@ export const AuthProvider = ({children}) => {
   }
 
   const refreshAccessToken = async () => {
+    console.log('Refreshing access token');
     try {
       // 実はgetIdToken()を使ってもリフレッシュトークンは取得できる?
       const response = await fetch('/api/refresh', {
         method: 'POST',
+        headers: {
+          'x-csrf-token': csrfToken.current
+        },
         credentials: 'include'
       })
       if (!response.ok) {
@@ -196,15 +203,24 @@ export const AuthProvider = ({children}) => {
         if (window.accessTokenRefresher) {
           clearTimeout(window.accessTokenRefresher);
         }
-        await auth.signOut();
-        await fetch('/api/logout', {
+        const response = await fetch('/api/logout', {
           method: 'POST',
-          credentials: 'include'
+          headers: {
+            'x-csrf-token': csrfToken.current
+          },
+          credentials: 'include',
         })
+        if (!response.ok) {
+          const data = await response.json();
+          console.log(data);
+          throw new Error(`Login failed: ${data.message}`);
+        }
+        await auth.signOut();
         localStorage.removeItem(ACCESS_TOKEN_EXPIRES_AT);
         deleteUserDataCache();
         await saveSession(null);
       } catch (error) {
+        console.log('Logout error:', error);
         throw error;
       }
     };
@@ -288,6 +304,10 @@ export const AuthProvider = ({children}) => {
       // Cookieが削除されていた時のためにセッションを保存
       // あくまでログイン状態はFirebaseの認証情報で管理
       await saveSession(currentUser)
+
+      if (!window.accessTokenRefresher) {
+        setUpAccessTokenRefresh();
+      }
       setLoading(false);
     });
 
