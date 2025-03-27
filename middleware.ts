@@ -4,6 +4,55 @@ import {generateCSRFToken} from "@/app/lib/middleware/csrf";
 import {checkCSRF, checkReferer} from "@/app/lib/middleware/securityCheck";
 
 export function middleware(request: NextRequest) {
+  // Define CSP directives
+  const ContentSecurityPolicy = `
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: blob:;
+  font-src 'self';
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  block-all-mixed-content;
+  upgrade-insecure-requests;
+`;
+
+// This function adds security headers, including CSP
+  const addSecurityHeaders = (response: NextResponse) => {
+    // Content Security Policy
+    response.headers.set(
+        'Content-Security-Policy',
+        ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim()
+    );
+
+    // Prevent browser from sniffing MIME types
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+
+    // Enable XSS Protection in browsers
+    response.headers.set('X-XSS-Protection', '1; mode=block');
+
+    // Prevent clickjacking
+    response.headers.set('X-Frame-Options', 'DENY');
+
+    // Strict Transport Security (enable HTTPS)
+    response.headers.set(
+        'Strict-Transport-Security',
+        'max-age=63072000; includeSubDomains; preload'
+    );
+
+    // Referrer Policy
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+    // Permissions Policy
+    response.headers.set(
+        'Permissions-Policy',
+        'camera=(), microphone=(), geolocation=()'
+    );
+
+    return response;
+  };
 
   const nextWithCSRFToken = () => {
     const res = NextResponse.next();
@@ -17,7 +66,7 @@ export function middleware(request: NextRequest) {
         path: '/'
       })
     }
-    return res;
+    return addSecurityHeaders(res);
   }
 
   // APIリクエストの場合はリファラーチェックとCSRFチェックを行う
@@ -30,7 +79,7 @@ export function middleware(request: NextRequest) {
     const csrfError = checkCSRF(request);
     if (csrfError) return csrfError;
 
-    return NextResponse.next()
+    return addSecurityHeaders(NextResponse.next());
   }
 
   // セッションクッキーを確認
@@ -41,14 +90,16 @@ export function middleware(request: NextRequest) {
 
   // ログイン済みのユーザーは /login や /signup にアクセスできないようにする
   if (isAuthenticated && (request.nextUrl.pathname === '/login')) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    const res = NextResponse.redirect(new URL('/dashboard', request.url));
+    return addSecurityHeaders(res);
   }
 
   // 未ログインユーザーが保護されたルートにアクセスしようとした場合はログインページにリダイレクト
   const protectedRoutes = ['/dashboard', '/profile', '/settings'];
 
   if (!isAuthenticated && protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route))) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    const res = NextResponse.redirect(new URL('/login', request.url));
+    return addSecurityHeaders(res);
   }
 
   // Basic認証のヘッダーを確認
@@ -73,12 +124,13 @@ export function middleware(request: NextRequest) {
     }
 
     // 認証失敗時のレスポンス
-    return new NextResponse('認証が必要です', {
+    const res = new NextResponse('認証が必要です', {
       status: 401,
       headers: {
         'WWW-Authenticate': 'Basic realm="Secure Area"',
       },
     });
+    return addSecurityHeaders(res);
   }
   return nextWithCSRFToken();
 }
