@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="fix: json返してなかったわ">
+    <list default="true" id="627a7571-bbe5-4c17-b288-c17abe6f7ce3" name="Changes" comment="feat: csrf-base">
+      <change afterPath="$PROJECT_DIR$/app/lib/middleware/securityCheck.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/hello/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/hello/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/context/AuthContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/context/AuthContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/libs/csrf.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/middleware/csrf.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/members/signup/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/members/signup/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/middleware.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,10 +23,16 @@
       <list>
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="new_auth" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="MIXED" />
   </component>
@@ -45,29 +57,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#1 on feat/auth__system",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
-    "ts.external.directory.path": "/Users/t-nakajima/WebstormProjects/my-protected-app/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#2 on id__pass__auth&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/t-nakajima/WebstormProjects/my-protected-app/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "TypeScript JSX",
-      "TypeScript",
-      "TEXT",
-      "JavaScript"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;TEXT&quot;,
+      &quot;JavaScript&quot;,
+      &quot;TypeScript JSX&quot;,
+      &quot;TypeScript&quot;
     ]
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/lib/middleware" />
+      <recent name="$PROJECT_DIR$/app/members" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -94,6 +112,33 @@
       <workItem from="1742364427333" duration="18324000" />
       <workItem from="1742400038212" duration="3162000" />
       <workItem from="1742434890698" duration="13100000" />
+      <workItem from="1742482596565" duration="15000" />
+      <workItem from="1742487447001" duration="16000" />
+      <workItem from="1742549120448" duration="626000" />
+      <workItem from="1742613516537" duration="1664000" />
+      <workItem from="1742615228750" duration="26000" />
+      <workItem from="1742615257149" duration="20886000" />
+      <workItem from="1742643345129" duration="3003000" />
+      <workItem from="1742646468270" duration="1271000" />
+      <workItem from="1742647743468" duration="6463000" />
+      <workItem from="1742654212912" duration="12229000" />
+      <workItem from="1742666451806" duration="6877000" />
+      <workItem from="1742673335028" duration="3937000" />
+      <workItem from="1742734822546" duration="9548000" />
+      <workItem from="1742865653200" duration="2799000" />
+      <workItem from="1742885206784" duration="2368000" />
+      <workItem from="1742890307551" duration="1239000" />
+      <workItem from="1743011390984" duration="273000" />
+      <workItem from="1743047113662" duration="6000" />
+      <workItem from="1743047273392" duration="616000" />
+      <workItem from="1743051685763" duration="157000" />
+      <workItem from="1743052664705" duration="29000" />
+      <workItem from="1743053154895" duration="21000" />
+      <workItem from="1743056400475" duration="70000" />
+      <workItem from="1743057036502" duration="85000" />
+      <workItem from="1743057880793" duration="40000" />
+      <workItem from="1743058695418" duration="4220000" />
+      <workItem from="1743062923994" duration="4761000" />
     </task>
     <task id="LOCAL-00001" summary="scanningRef">
       <option name="closed" value="true" />
@@ -159,7 +204,23 @@
       <option name="project" value="LOCAL" />
       <updated>1742024628280</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: 認証の所直す＆basic認証入れる">
+      <option name="closed" value="true" />
+      <created>1742744309978</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1742744309978</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: csrf-base">
+      <option name="closed" value="true" />
+      <created>1743063347213</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743063347213</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,6 +246,8 @@
     <MESSAGE value="get log" />
     <MESSAGE value="interface" />
     <MESSAGE value="post log" />
-    <option name="LAST_COMMIT_MESSAGE" value="post log" />
+    <MESSAGE value="feat: 認証の所直す＆basic認証入れる" />
+    <MESSAGE value="feat: csrf-base" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: csrf-base" />
   </component>
 </project>

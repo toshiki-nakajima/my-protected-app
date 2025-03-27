@@ -4,10 +4,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
-import localFont from "next/dist/compiled/@next/font/dist/local";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,7 +20,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await login(email, password);
+      await login(id, password);
       console.log("ログイン成功");
       router.push('/dashboard');
     } catch (error) {
@@ -32,7 +31,7 @@ export default function Login() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md h-screen">
       <h1 className="text-2xl font-bold mb-6">ログイン</h1>
 
       {error && (
@@ -43,14 +42,14 @@ export default function Login() {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="email">
-            メールアドレス
+          <label className="block text-gray-700 mb-2" htmlFor="id">
+            ID
           </label>
           <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="id"
+            type="text"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded"
             required
           />

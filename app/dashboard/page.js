@@ -173,7 +173,7 @@ export default function Dashboard() {
       console.log('Sending data:', postData);
 
       // Make POST request to our local API endpoint
-      const response = await fetch('/api/hello', {
+      const response = await fetch('/api/add-points', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -283,8 +283,7 @@ export default function Dashboard() {
 
           <div className="bg-gray-100 p-4 rounded">
             <p><strong>名前:</strong> {userData.name}</p>
-            <p><strong>メールアドレス:</strong> {userData.email}</p>
-            <p><strong>ユーザーID:</strong> {userData.uid}</p>
+            <p><strong>ID:</strong> {userData.id}</p>
             <p><strong>登録日:</strong> {new Date(userData.createdAt).toLocaleString('ja-JP')}</p>
             {userData.cachedAt && (
               <p className="text-xs text-gray-500 mt-2">

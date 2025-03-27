@@ -1,65 +1,39 @@
 import {NextRequest, NextResponse} from 'next/server';
+import {validateCSRFToken} from "@/app/lib/middleware/csrf";
 
 export async function GET(request: NextRequest) {
     console.log('GET request received');
     return NextResponse.json({message: 'Hello API'});
 }
 
-interface RequestedBodyFromClient {
-    uid: string;
-    points: number;
-    timestamp: string;
-}
-interface BodyToRequestForOpenApi {
-    uid: string;
-    params: ParamsForOpenApi;
-}
-interface ParamsForOpenApi {
-    points: number;
-}
-export async function POST(request: NextRequest) {
-    console.log('POST request received');
+export async function POST(req: NextRequest) {
+    console.log("hello");
+    // // referer check
+    // const referer = req.headers.get("referer");
+    // const host = req.headers.get("host");
+    // if (!referer || !host || !referer.includes(host)) {
+    //     return NextResponse.json({success: false, error: "Invalid Referer"}, {status: 403});
+    // }
+    //
+    // // csrf check
+    // const csrfCookie = req.cookies.get("csrf_token")?.value;
+    // const csrfHeader = req.headers.get("x-csrf-token");
+    // if (!csrfCookie || !csrfHeader) {
+    //     return NextResponse.json({success: false, error: "No Csrf Token"}, {status: 403});
+    // }
+    // if (!validateCSRFToken(csrfHeader, csrfCookie)) {
+    //     return NextResponse.json({success: false, error: "Invalid Csrf Token"}, {status: 403});
+    // }
+
     try {
-        const body = await request.json();
-        console.log('POST request body:', body);
-
-        const openApiActionBasePath = process.env.OPEN_API_ACTION_BASE_PATH;
-        const openApiCode = process.env.OPEN_API_CODE
-        const openApiTriggerOfAddingPoints = process.env.OPEN_API_TRIGGER_OF_ADDING_POINTS;
-        const postUrl = `${openApiActionBasePath}/${openApiCode}/${openApiTriggerOfAddingPoints}`;
-        const openApiToken = process.env.OPEN_API_TOKEN;
-        // Process the data
-        const {uid, points} = body as RequestedBodyFromClient;
-        const bodyToRequest: BodyToRequestForOpenApi = {
-            uid,
-            params: {
-                points
-            }
-        }
-
-        await fetch(postUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${openApiToken}`
-            },
-            body: JSON.stringify(bodyToRequest)
-        }).then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.error(err);
-        })
-
-
+        const body = await req.json();
+        console.log(body);
         return NextResponse.json({
             success: true,
-            data: body,
-            receivedAt: new Date().toISOString()
-        });
+            data: body
+        }, {status: 200});
     } catch (error) {
-        return NextResponse.json(
-            {success: false, error: 'Invalid request body'},
-            {status: 400}
-        );
+        console.log(error);
+        return NextResponse.json({success: false, error: "Invalid Request"}, {status:400});
     }
 }
